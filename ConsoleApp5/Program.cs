@@ -5,7 +5,7 @@
         
         protected string firstName;
         protected string lastName;
-        protected int    human_age;
+        public int    human_age;
         protected string adress;
         protected string City;
         protected string State;
@@ -26,7 +26,10 @@
         {
             firstName = fName;
             lastName = lName;
-            human_age = age;
+            while (!Age())
+            {
+                human_age = age;
+            }
             City = city;
             Country = country;
             date_of_take= date;
@@ -40,14 +43,32 @@
                 $"\nГражданство:{ National}\nДата выдачи заграничного паспорта:{ date_of_take} " +
                 $"\nID:{ id}");
         }
+        private bool Age()
+        {
+            if (this.human_age > 100 || this.human_age < 14)
+            {
+                Console.WriteLine($"Неправильно указан возраст{human_age}");
+
+                return false;
+            }
+            return true;
+        }
+    }
+    static class newFunc
+    {
+        public static int vozrast_v_dnyah(this FPasport p)
+        {
+            return p.human_age * 365+p.human_age/4;
+        }
     }
     class Program
     {
         static void Main(string[] args)
         {
             FPasport employee = new FPasport("John",
-            "Doe", 25,"Tyumen","Russia","01.01.1990","RF","qwertyu12345");
+            "Doe", 5,"Tyumen","Russia","01.01.1990","RF","qwertyu12345");
             employee.Print();
+            Console.WriteLine(employee.vozrast_v_dnyah());
         }
     }
 }
